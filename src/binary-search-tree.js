@@ -1,49 +1,69 @@
-const { NotImplementedError } = require('../extensions/index.js');
-
-// const { Node } = require('../extensions/list-tree.js');
+const { Node } = require("../extensions/list-tree.js");
 
 /**
-* Implement simple binary search tree according to task description
-* using Node from extensions
-*/
+ * Implement simple binary search tree according to task description
+ * using Node from extensions
+ */
 class BinarySearchTree {
+  arr = [];
 
   root() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.arr[0] !== undefined ? new Node(this.arr[0]) : null;
   }
 
-  add(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  add(num) {
+    const i = this._search(num);
+    this.arr.splice(i, 0, num);
   }
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  has(num) {
+    const i = this._search(num);
+    return this.arr[i] === num;
   }
 
-  find(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  find(num) {
+    const i = this._search(num);
+    if (this.arr[i] === num) {
+      return new Node(num);
+    }
+    return null;
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  remove(num) {
+    const i = this._search(num);
+    if (this.arr[i] !== num) {
+      return;
+    }
+    this.arr.splice(i, 1);
   }
 
   min() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.arr[0];
   }
 
   max() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.arr[this.arr.length - 1];
+  }
+
+  _search(num) {
+    const arr = this.arr;
+    let l = 0;
+    let r = arr.length - 1;
+    while (l <= r) {
+      const mid = Math.floor((l + r) / 2);
+      if (num === arr[mid]) {
+        return mid;
+      }
+      if (num < arr[mid]) {
+        r = mid - 1;
+      } else {
+        l = mid + 1;
+      }
+    }
+    return l;
   }
 }
 
 module.exports = {
-  BinarySearchTree
+  BinarySearchTree,
 };
